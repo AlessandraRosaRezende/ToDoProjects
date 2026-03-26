@@ -12,17 +12,6 @@ Sistema de gestão de follow-up de projetos com dashboard compartilhado, histór
 
 ---
 
-## ⚙️ Configuração do Supabase (banco de dados)
-
-1. Acesse [supabase.com](https://supabase.com) e crie conta via GitHub
-2. Clique em **New Project** → dê um nome → região **South America (São Paulo)** → crie
-3. Vá em **SQL Editor** → cole o conteúdo de `supabase-schema.sql` → clique **Run**
-4. Vá em **Project Settings → API** e copie:
-   - `Project URL` → vai para `SUPABASE_URL`
-   - Chave `service_role` (em API Keys) → vai para `SUPABASE_SERVICE_KEY`
-
----
-
 ## 🔑 Variáveis de ambiente
 
 ### Backend (`backend/.env`)
@@ -55,29 +44,6 @@ cp .env.example .env         # ajuste VITE_API_URL se necessário
 npm install
 npm run dev                  # http://localhost:5173
 ```
-
----
-
-## ☁️ Deploy gratuito na nuvem
-
-### Backend → Render.com
-1. Crie conta em [render.com](https://render.com)
-2. **New → Web Service** → conecte seu repositório GitHub
-3. Configure:
-   - **Root directory**: `backend`
-   - **Build command**: `npm install && npm run build`
-   - **Start command**: `node dist/index.js`
-4. Em **Environment**, adicione as variáveis do `backend/.env`
-5. Copie a URL gerada (ex: `https://followup-backend.onrender.com`)
-
-### Frontend → Vercel.com
-1. Crie conta em [vercel.com](https://vercel.com)
-2. **New Project** → importe o repositório → configure:
-   - **Root directory**: `frontend`
-   - **Framework**: Vite
-3. Em **Environment Variables**, adicione:
-   - `VITE_API_URL` = URL do seu backend no Render
-4. Copie a URL do Vercel e atualize `FRONTEND_URL` no Render
 
 ---
 
