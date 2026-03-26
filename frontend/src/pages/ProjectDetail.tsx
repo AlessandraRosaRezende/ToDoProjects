@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useProject } from '../hooks/useProjects'
 import { StatusBadge } from '../components/StatusBadge'
