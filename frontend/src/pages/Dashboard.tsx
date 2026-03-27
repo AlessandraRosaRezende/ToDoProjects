@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import { Project, ProjectStatus, STATUS_CONFIG, ProjectLog } from '../types'
 import { useProjects, deleteProject, usePeople } from '../hooks/useProjects'
 import { ProjectCard } from '../components/ProjectCard'

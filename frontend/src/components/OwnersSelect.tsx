@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { Person } from '../types'
 
 interface Props {
@@ -37,7 +37,6 @@ export function OwnersSelect({ people, selected, onChange }: Props) {
           <span style={{ fontSize: 14, color: 'var(--text3)' }}>Selecionar responsáveis...</span>
         ) : (
           selected.map(name => {
-            const person = people.find(p => p.name === name)
             return (
               <span key={name} style={{
                 fontSize: 12, fontWeight: 600, padding: '3px 10px',

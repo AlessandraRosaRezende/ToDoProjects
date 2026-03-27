@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { ProjectLog } from '../types'
 import { addProjectLog, deleteProjectLog } from '../hooks/useProjects'
 import { useUser } from '../lib/UserContext'
