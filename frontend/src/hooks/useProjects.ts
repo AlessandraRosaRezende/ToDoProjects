@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
 import api from '../lib/api'
-import { Project, ProjectDetail, ProjectStatus, Person } from '../types'
+import { Project, ProjectDetail, ProjectStatus, Person, ProjectLog } from '../types'
 
 interface Filters {
   status?: ProjectStatus
@@ -13,8 +13,7 @@ export function useProjects(filters: Filters = {}) {
   const [error, setError] = useState<string | null>(null)
 
   const fetchProjects = useCallback(async () => {
-    setLoading(true)
-    setError(null)
+    setLoading(true); setError(null)
     try {
       const params = new URLSearchParams()
       if (filters.status) params.set('status', filters.status)
@@ -39,11 +38,13 @@ export function useProject(id: string | undefined) {
 
   const fetchProject = useCallback(async () => {
     if (!id) return
-    setLoading(true)
-    setError(null)
+    setLoading(true); setError(null)
     try {
-      const res = await api.get(`/api/projects/${id}`)
-      setProject(res.data.data)
+      const [projectRes, logsRes] = await Promise.all([
+        api.get(`/api/projects/${id}`),
+        api.get(`/api/project-logs/${id}`),
+      ])
+      setProject({ ...projectRes.data.data, logs: logsRes.data.data ?? [] })
     } catch (err: any) {
       setError(err.response?.data?.error || 'Erro ao carregar projeto')
     } finally {
@@ -63,11 +64,7 @@ export function usePeople() {
     try {
       const res = await api.get('/api/people')
       setPeople(res.data.data)
-    } catch {
-      setPeople([])
-    } finally {
-      setLoading(false)
-    }
+    } catch { setPeople([]) } finally { setLoading(false) }
   }, [])
 
   useEffect(() => { fetchPeople() }, [fetchPeople])
@@ -95,8 +92,13 @@ export async function addComment(data: {
   return res.data.data
 }
 
-export async function createPerson(data: { name: string; email: string; role: string }) {
+export async function createPerson(data: { name: string; email: string; udn_role: string }) {
   const res = await api.post('/api/people', data)
+  return res.data.data as Person
+}
+
+export async function updatePerson(id: string, data: Partial<Person>) {
+  const res = await api.put(`/api/people/${id}`, data)
   return res.data.data as Person
 }
 
@@ -104,7 +106,13 @@ export async function deletePerson(id: string) {
   await api.delete(`/api/people/${id}`)
 }
 
-export async function updatePerson(id: string, data: Partial<import('../types').Person>) {
-  const res = await api.put(`/api/people/${id}`, data)
-  return res.data.data as import('../types').Person
+export async function addProjectLog(data: {
+  project_id: string; author_name: string; content: string
+}) {
+  const res = await api.post('/api/project-logs', data)
+  return res.data.data as ProjectLog
+}
+
+export async function deleteProjectLog(id: string) {
+  await api.delete(`/api/project-logs/${id}`)
 }

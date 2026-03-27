@@ -3,13 +3,9 @@ import { supabase } from '../lib/supabase';
 
 const router = Router();
 
-// GET all people
-router.get('/', async (_req: Request, res: Response) => {
+router.get('/', async (_req, res: Response) => {
   try {
-    const { data, error } = await supabase
-      .from('people')
-      .select('*')
-      .order('name');
+    const { data, error } = await supabase.from('people').select('*').order('name');
     if (error) throw error;
     res.json({ data });
   } catch (err: any) {
@@ -17,14 +13,14 @@ router.get('/', async (_req: Request, res: Response) => {
   }
 });
 
-// POST create person
 router.post('/', async (req: Request, res: Response) => {
   try {
-    const { name, email, role } = req.body;
+    const { name, email, udn_role } = req.body;
     if (!name?.trim()) return res.status(400).json({ error: 'Nome obrigatório' });
+    if (!udn_role?.trim()) return res.status(400).json({ error: 'UDN/Cargo/Área obrigatório' });
     const { data, error } = await supabase
       .from('people')
-      .insert([{ name: name.trim(), email: email?.trim() ?? '', role: role?.trim() ?? '' }])
+      .insert([{ name: name.trim(), email: email?.trim() ?? '', udn_role: udn_role.trim() }])
       .select().single();
     if (error) throw error;
     res.status(201).json({ data });
@@ -33,14 +29,15 @@ router.post('/', async (req: Request, res: Response) => {
   }
 });
 
-// PUT update person
 router.put('/:id', async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const { name, email, role } = req.body;
+    const { name, email, udn_role } = req.body;
+    if (!name?.trim()) return res.status(400).json({ error: 'Nome obrigatório' });
+    if (!udn_role?.trim()) return res.status(400).json({ error: 'UDN/Cargo/Área obrigatório' });
     const { data, error } = await supabase
       .from('people')
-      .update({ name: name?.trim(), email: email?.trim(), role: role?.trim() })
+      .update({ name: name.trim(), email: email?.trim() ?? '', udn_role: udn_role.trim() })
       .eq('id', id).select().single();
     if (error) throw error;
     res.json({ data });
@@ -49,7 +46,6 @@ router.put('/:id', async (req: Request, res: Response) => {
   }
 });
 
-// DELETE person
 router.delete('/:id', async (req: Request, res: Response) => {
   try {
     const { id } = req.params;

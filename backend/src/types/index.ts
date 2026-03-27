@@ -23,7 +23,15 @@ export interface Person {
   id: string;
   name: string;
   email: string;
-  role: string;
+  udn_role: string;
+  created_at: string;
+}
+
+export interface ProjectLog {
+  id: string;
+  project_id: string;
+  author_name: string;
+  content: string;
   created_at: string;
 }
 
