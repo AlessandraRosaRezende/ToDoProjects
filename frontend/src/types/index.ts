@@ -1,10 +1,10 @@
 export type ProjectStatus =
-  | '🟢 EM DIA'
-  | '🔵 AGUARDANDO'
-  | '🟡 RETOMANDO'
-  | '🔴 CRÍTICO'
-  | '⚪ SUSPENSO'
-  | '🟣 CONCLUÍDO'
+  | 'EM DIA'
+  | 'AGUARDANDO'
+  | 'RETOMANDO'
+  | 'CRÍTICO'
+  | 'SUSPENSO'
+  | 'CONCLUÍDO'
 
 export interface Project {
   id: string
@@ -64,12 +64,12 @@ export interface HistoryEntry {
 export const STATUS_CONFIG: Record<ProjectStatus, {
   label: string; color: string; bg: string; dot: string
 }> = {
- '🟢 EM DIA':     { label: 'PREVISTO',   color: '#16a34a', bg: 'rgba(22,163,74,0.14)',    dot: '#22c55e' },
- '🔵 AGUARDANDO': { label: 'AGUARDANDO', color: '#0369a1', bg: 'rgba(14,165,233,0.14)',   dot: '#38bdf8' },
- '🟡 RETOMANDO':  { label: 'RETOMANDO',  color: '#a16207', bg: 'rgba(234,179,8,0.14)',    dot: '#facc15' },
- '🔴 CRÍTICO':    { label: 'CRÍTICO',    color: '#b91c1c', bg: 'rgba(220,38,38,0.14)',    dot: '#ef4444' },
- '⚪ SUSPENSO':   { label: 'SUSPENSO',   color: '#4b5563', bg: 'rgba(107,114,128,0.14)', dot: '#9ca3af' },
- '🟣 CONCLUÍDO':  { label: 'CONCLUÍDO',  color: '#7e22ce', bg: 'rgba(126,34,206,0.14)',   dot: '#a855f7' },
+ 'EM DIA':     { label: 'PREVISTO',   color: '#16a34a', bg: 'rgba(22,163,74,0.14)',    dot: '#22c55e' },
+ 'AGUARDANDO': { label: 'AGUARDANDO', color: '#0369a1', bg: 'rgba(14,165,233,0.14)',   dot: '#38bdf8' },
+ 'RETOMANDO':  { label: 'RETOMANDO',  color: '#a16207', bg: 'rgba(234,179,8,0.14)',    dot: '#facc15' },
+ 'CRÍTICO':    { label: 'CRÍTICO',    color: '#b91c1c', bg: 'rgba(220,38,38,0.14)',    dot: '#ef4444' },
+ 'SUSPENSO':   { label: 'SUSPENSO',   color: '#4b5563', bg: 'rgba(107,114,128,0.14)', dot: '#9ca3af' },
+ 'CONCLUÍDO':  { label: 'CONCLUÍDO',  color: '#7e22ce', bg: 'rgba(126,34,206,0.14)',   dot: '#a855f7' },
 }
 
 export const FIELD_LABELS: Record<string, string> = {
