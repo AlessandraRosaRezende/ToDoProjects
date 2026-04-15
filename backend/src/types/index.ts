@@ -1,10 +1,10 @@
 export type ProjectStatus =
-  | '🟢 EM DIA'
-  | '🔵 AGUARDANDO'
-  | '🟡 RETOMANDO'
-  | '🔴 CRÍTICO'
-  | '⚪ SUSPENSO'
-  | '🟣 CONCLUÍDO';
+  | 'EM DIA'
+  | 'AGUARDANDO'
+  | 'RETOMANDO'
+  | 'CRÍTICO'
+  | 'SUSPENSO'
+  | 'CONCLUÍDO';
 
 export interface Project {
   id: string;
